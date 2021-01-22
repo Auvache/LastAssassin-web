@@ -1,0 +1,117 @@
+/*
+	 CSS-Tricks Example
+	 by Chris Coyier
+	 http://css-tricks.com
+*/
+
+* { margin: 0; padding: 0; }
+html { overflow-y: scroll; }
+body { font-family: 'Syncopate'; background: #333; color: #ffffff; }
+.group:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+.group { display: inline-block; clear: both; max-width: 100%;}
+/* start commented backslash hack \*/ * html .group { height: 1%; } .group { display: block; } /* close commented backslash hack */
+article, aside, figure, footer, header, hgroup, menu, nav, section { display: block; }
+a:focus { outline: 0; }
+
+
+
+#page-wrap { 
+	/* control size of the phone */
+	max-width: 320px;
+	max-height: 568px;
+    height: 100vh;
+	width: 100%;
+	position: relative;
+    margin: 40px auto 5px;
+    background: #91c7ff;
+    padding: 12px;
+    background: linear-gradient(180deg, rgba(219,0,0,1) 0%, rgba(84,3,3,1) 94%);
+    background: -moz-linear-gradient(top, #eee, #ccc);
+    -webkit-border-radius: 16px;
+	-moz-border-radius: 16px;
+	text-align: center;
+}
+
+#main-content { padding: 14px; }
+
+h1 { font-size: 32px; letter-spacing: 4px; padding: 14px; color: #ffffff;}
+p { margin: 0 0 15px 0; }
+ 
+
+/* delete after dev ******************************************************************************************************************/
+nav ul { 
+
+}
+nav ul li { display: inline; }
+nav ul li a {
+	display: block;
+	float: left;
+	border-top: 1px solid #96d1f8;
+	background: #3e779d;
+	background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
+	background: -moz-linear-gradient(top,  #65a9d7,  #3e779d);
+	height: 17px;
+	padding: 0 10px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-shadow: rgba(0,0,0,1) 0 1px 3px;
+	-moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+	text-shadow: rgba(0,0,0,.4) 0 1px 0;
+	-webkit-text-stroke: 1px transparent;
+	font: bold 11px/16px "Lucida Grande", "Verdana", sans-serif;
+	color: rgba(255,255,255,.85);
+	text-decoration: none; 
+	margin: 0 5px 0 0;
+}
+nav ul li a:hover {
+	border-top: 1px solid #4789b4;
+	background: #28597a;
+	background: -webkit-gradient(linear, left top, left bottom, from(#3d789f), to(#28597a));
+	background: -moz-linear-gradient(top,  #3d789f,  #28597a);
+	color: rgba(255,255,255,.85); 
+}	
+nav ul li a:active, nav ul li a.current {
+	border-top-color: #245779;
+	background: #1b435e;
+	position: relative;
+	top: 1px; 
+}
+/* END delete after dev ******************************************************************************************************************/
+
+
+a.btn {
+	width: 224px;
+    margin: 12px auto;
+    background-color: #000000;
+    padding: 20px 20px;
+    font-size: 20px;
+    color: #ffffff;
+    display: inline-block;
+    text-decoration: none;
+}
+
+input[type="text"] {
+	width: 224px;
+    margin: 12px auto;
+    background-color: #ffffff;
+    padding: 20px 20px;
+    font-size: 20px;
+    color: #000000;
+    display: inline-block;
+	text-decoration: none;
+	font-family: 'Syncopate';
+	border: none;
+}
+
+select {
+	width: 265px;
+    margin: 12px auto;
+    background-color: #ffffff;
+    padding: 20px 20px;
+    font-size: 20px;
+    color: #000000;
+    display: inline-block;
+	text-decoration: none;
+	font-family: 'Syncopate';
+}
