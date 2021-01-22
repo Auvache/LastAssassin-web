@@ -31,4 +31,12 @@ $(function() {
     
     $(window).trigger('hashchange');
 
+    function loadPage() {
+        setTimeout(function() { goStart(); }, 2000);
+			  
+        function goStart() {
+            document.getElementById('start-game').click();
+        }
+    }
+
 });
