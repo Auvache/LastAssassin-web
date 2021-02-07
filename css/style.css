@@ -1,14 +1,16 @@
-/*
-	 CSS-Tricks Example
-	 by Chris Coyier
-	 http://css-tricks.com
-*/
-
 * { margin: 0; padding: 0; }
 html { overflow-y: scroll; }
 body { font-family: 'Syncopate'; background: #333; color: #ffffff; }
 article, aside, figure, footer, header, hgroup, menu, nav, section { display: block; }
-a:focus { outline: 0; }
+button, input[type="submit"], input[type="reset"] {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
 #page-wrap { 
 	/* control size of the phone */
 	max-width: 320px;
@@ -26,55 +28,16 @@ a:focus { outline: 0; }
 	text-align: center;
 }
 
-#main-content { padding: 14px; }
-
-h1 { font-size: 16px; letter-spacing: 4px; padding: 0 12px 12px; color: #ffffff;}
+h1 { font-size: 16px; letter-spacing: 4px; padding: 0 12px 12px; color: #ffffff; margin-bottom: 24px;}
 h1.menu { font-size: 32px; letter-spacing: 4px; padding: 14px; color: #ffffff;}
 p { margin: 0 0 15px 0; }
  
-
-/* delete after dev ******************************************************************************************************************/
-nav { 
-	max-width: 400px;
-    margin: 24px auto;
-}
-nav ul li { display: inline-block; margin: 4px;}
-nav ul li a {
-    border-top: 1px solid #96d1f8;
-    background: #3e779d;
-    background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
-    background: -moz-linear-gradient(top, #65a9d7, #3e779d);
-    height: 17px;
-    padding: 0 10px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-box-shadow: rgb(0 0 0) 0 1px 3px;
-    -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
-    -webkit-text-stroke: 1px transparent;
-    color: rgba(255,255,255,.85);
-    text-decoration: none;
-}
-nav ul li a:hover {
-	border-top: 1px solid #4789b4;
-	background: #28597a;
-	background: -webkit-gradient(linear, left top, left bottom, from(#3d789f), to(#28597a));
-	background: -moz-linear-gradient(top,  #3d789f,  #28597a);
-	color: rgba(255,255,255,.85); 
-}	
-nav ul li a:active, nav ul li a.current {
-	border-top-color: #245779;
-	background: #1b435e;
-	position: relative;
-	top: 1px; 
-}
-/* END delete after dev ******************************************************************************************************************/
 .thin { font-weight: 200; }
 .black { color: #000000; }
 .white { color: #ffffff; }
 .hide { display: none; }
 
-a.btn {
+.btn {
 	width: 224px;
     margin: 12px auto;
     background-color: #000000;
@@ -85,7 +48,7 @@ a.btn {
     text-decoration: none;
 }
 
-a.btn-small {
+.btn-small {
 	width: 224px;
     margin: 6px auto;
     background-color: #000000;
@@ -149,42 +112,23 @@ to {
 }
 }
 
-#gameCode {
+.game-code {
 	width: 224px;
     margin: 12px auto;
     padding: 12px 20px;
 	font-size: 20px;
 	font-weight: 700;
     display: inline-block;
+	background: transparent;
 	border: 1px solid #000000;
 }
 
-.players-title {
-	font-size: 18px;
-	font-weight: 700;
-	border-bottom: 1px solid #ffffff;
-	padding-bottom: 4px;
-	margin: 8px auto;
-	width:  200px;
-}
-
-#playerList {
-	height: 200px;
-}
-
-#playerList ul {
+#lobby_result {
 	list-style: none;
 	padding: 0;
 }
 
-#playerList li {
-	font-size: 14px;
-	color: #ffffff;
-}
 
-#gameBoard {
-
-}
 
 /* tutorial */
 
@@ -222,7 +166,3 @@ to {
 	text-decoration: none;
 	cursor: pointer;
   }
-
-
-
-

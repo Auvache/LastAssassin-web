@@ -3,53 +3,89 @@
 
 <head>
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-	<meta name="description" content="Free Web tutorials">
-	<meta name="keywords" content="HTML, CSS, JavaScript">
+	<meta name="description" content="Free Last Assassin Game for the Web">
+	<meta name="keywords" content="Last Assassin, LastAssassin, Assassin, Assassin Game">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
 	<title>Last Assassin</title>
-	
 	<link rel='stylesheet' type='text/css' href='css/style.css' />
-	
-	<!--[if IE]>
-      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-	
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
-    <script type='text/javascript' src='js/jquery.ba-hashchange.min.js'></script>
-	<script type='text/javascript' src='js/dynamicpage.js'></script>
+	<script type='text/javascript' src='js/script.js'></script>
 	<link href='https://fonts.googleapis.com/css?family=Syncopate' rel='stylesheet'>
-
 </head>
 
-<body id="navigate">
+<body>
+<div id="page-wrap">
+	
+	<!-- opening page -->
+	<div id="menu-screen">
+		<img class="menu" alt="" src="img/shuriken.png">
+		<h1 class="menu">Last Assassin</h1>
+		<button class="btn" onclick="Create()">Create Game</button>
+		<button class="btn" onclick="showJoin()">join game</button>
+	</div>
 
-	<div id="page-wrap">
-		
-		<section id="main-content">
-		<div id="guts" class="navigation">
-			<img class="menu" alt="" src="img/shuriken.png">
-			<h1 class="menu">Last Assassin</h1>
-			<a class="btn" href="createGame.html">Create Game</a>
-			<a class="btn" href="joinGame.html">Join Game</a>
-		</div>
-		</section>
+	<!-- join game page -->
+	<div id="join-screen" class="hide">
+		<img alt="" src="img/shuriken.png">
+		<h1>Last<br/>Assassin</h1>
+		<label for="lcode2">Game Code:</label>
+		<input type="text" id="lcode2" name="lcode2" />
+		<label for="lname2">Enter Name:</label>
+		<input type="text" id="lname2" name="lname2" />
+		<button class="btn" onclick="Lobby2()">Send</button>
+	</div>
+
+	<!-- create game page -->
+	<div id="create-screen" class="hide">
+		<img alt="" src="img/shuriken.png">
+		<h1>Last<br/>Assassin</h1>
+		<p class="hide" id="create_result"></p>
+		<input type="hidden" id="lcode" name="lcode" />
+		<label for="lname">Host Name:</label>
+		<input type="text" id="lname" name="lname" />
+		<button class="btn" onclick="Lobby()">got to lobby</button>
+	</div>
+
+	<!-- lobby -->
+	<div id="lobby-screen" class="hide">
+		<img alt="" src="img/shuriken.png">
+		<h1>Last<br/>Assassin</h1>
+		<label>Game Code</label>
+
+		<h2 class="game-code" id="scode"></h2>
+		<p style="text-decoration: underline;">Players</p>
+		<ul id="lobby_result"></ul>
+		<button class="btn" onclick="Start()">Start Game</button>
 		
 	</div>
 
-	<nav>
-		<ul class="group">
-			<li><a href="index.html">Menu</a></li>
-			<li><a href="createGame.html">create game</a></li>
-			<li><a href="joinGame.html">join game</a></li>
-			<li><a href="loading.html">loading</a></li>
-			<li><a href="lobby.html">lobby</a></li>
-			<li><a href="game.html">play game</a></li>
-			<li><a href="end.html">end game</a></li>
+	<!-- game play -->
+	<div id="game-screen" class="hide">
+		<p>game</p>
+		<p id="start_result"></p>
+		<input type="text" id="code" name="code" />
+		<input type="text" id="name" name="name" />
+		<label for="lat">Latitude:</label>
+		<input type="number" id="lat" name="lat" value=".0005" />
+		<label for="long">Longitude:</label>
+		<input type="number" id="long" name="long" value=".0005" />
+		<label for="timestamp">Timestamp:</label>
+		<input type="datetime-local" id="timestamp" name="timestamp" />
+		<button class="btn" onclick="Game()">call game function</button>
+		<p id="game_result">Results will go here.</p>
+	</div>
 
-		</ul>
-	</nav>
+	<!-- after game -->
+	<div id="end-screen" class="hide">
+		<p>end</p>
+	</div>
 
+	<!-- loading -->
+	<div id="loading-screen" class="hide">
+		<p>loading</p>
+	</div>
+
+</div>
 </body>
 
 </html>
