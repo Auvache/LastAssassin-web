@@ -53,6 +53,7 @@ function Start() {
       document.getElementById("start_result").innerHTML = JSON.stringify(data);
       showGame();
       // show loading screen here before calling Game();
+
       setTimeout(function(){Game();},5000);
     })
     .catch((error) => {
@@ -92,6 +93,7 @@ function Lobby() {
       if (heart.lobbybeat < 100) {
         setTimeout(function(){Lobby();},3000);
       };
+      
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -101,7 +103,7 @@ function Lobby() {
     
 }
 
-function Lobby2(hb2) {
+function Lobby2() {
   heart.lobbybeat = heart.lobbybeat + 1;
   document.getElementById('hb').innerText = heart.lobbybeat;
 
@@ -133,6 +135,12 @@ function Lobby2(hb2) {
       if (heart.lobbybeat < 100) {
         setTimeout(function(){Lobby2();},3000);
       };
+
+      if (data.GameStarted == true) {
+        document.getElementById("code").value = code;
+        showGame();
+        Game();
+      }
     })
     .catch((error) => {
       console.error("Error:", error);
