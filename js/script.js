@@ -1,4 +1,8 @@
 const api_url = "http://lastapi.stevenrummler.com/";
+const heart = {
+  gamebeat: 0,
+  lobbybeat: 0
+}
 
 function Create() {
   fetch(api_url, {
@@ -27,6 +31,8 @@ function Create() {
 }
 
 function Start() {
+  heart.lobbybeat = 1000000;
+
   const code = document.getElementById("scode").innerHTML;
   const request = {
     Game: code,
@@ -45,15 +51,19 @@ function Start() {
     })
     .then((data) => {
       document.getElementById("start_result").innerHTML = JSON.stringify(data);
+      showGame();
+      // show loading screen here before calling Game();
+      setTimeout(function(){Game();},5000);
     })
     .catch((error) => {
       console.error("Error:", error);
     });
-
-    showGame();
 }
 
 function Lobby() {
+  heart.lobbybeat = heart.lobbybeat + 1;
+  document.getElementById('hb').innerText = heart.lobbybeat;
+
   const code = document.getElementById("lcode").value;
   const name = document.getElementById("lname").value;
   document.getElementById("name").value = name;
@@ -78,7 +88,10 @@ function Lobby() {
       for (var i = 0; i < data.Players.length; i++) {
         html += '<li>' + data.Players[i] + '</li>';
       }
-      document.getElementById("lobby_result").innerHTML = html;   
+      document.getElementById("lobby_result").innerHTML = html;
+      if (heart.lobbybeat < 100) {
+        setTimeout(function(){Lobby();},3000);
+      };
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -86,11 +99,12 @@ function Lobby() {
 
     document.getElementById("scode").innerHTML = document.getElementById("lcode").value;
     
-    showLobby();
-    setInterval(function(){Lobby()},5000);
 }
 
-function Lobby2() {
+function Lobby2(hb2) {
+  heart.lobbybeat = heart.lobbybeat + 1;
+  document.getElementById('hb').innerText = heart.lobbybeat;
+
   const code = document.getElementById("lcode2").value;
   const name = document.getElementById("lname2").value;
   document.getElementById("name").value = name;
@@ -116,6 +130,9 @@ function Lobby2() {
         html += '<li>' + data.Players[i] + '</li>';
       }
       document.getElementById("lobby_result").innerHTML = html;
+      if (heart.lobbybeat < 100) {
+        setTimeout(function(){Lobby2();},3000);
+      };
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -123,12 +140,13 @@ function Lobby2() {
     
     document.getElementById("scode").innerHTML = document.getElementById("lcode2").value;
     
-    showLobby();
-    setInterval(function(){Lobby2()},5000);
     
 }
 
 function Game() {
+  heart.gamebeat = heart.gamebeat + 1;
+  document.getElementById('ghb').innerText = heart.gamebeat;
+
   const code = document.getElementById("code").value;
   const name = document.getElementById("name").value;
   const lat = document.getElementById("lat").value;
@@ -155,10 +173,13 @@ function Game() {
     })
     .then((data) => {
       document.getElementById("game_result").innerHTML = JSON.stringify(data);
+      if (heart.gamebeat < 1000000) {
+        setTimeout(function(){Game();},3000);
+      };
     })
     .catch((error) => {
       console.error("Error:", error);
-    });
+    });    
 }
 
 // show page methods
@@ -177,18 +198,37 @@ function showCreate(c) {
 }
 
 function showLobby() {
-    let menuScreen = document.getElementById('menu-screen');
-    let createScreen = document.getElementById('create-screen');
-    let joinScreen = document.getElementById('join-screen');
-    let lobbyScreen = document.getElementById('lobby-screen');
-    let gameScreen = document.getElementById('game-screen');
-    let endScreen = document.getElementById('end-screen');
-    let loadScreen = document.getElementById('loading-screen');
+  let menuScreen = document.getElementById('menu-screen');
+  let createScreen = document.getElementById('create-screen');
+  let joinScreen = document.getElementById('join-screen');
+  let lobbyScreen = document.getElementById('lobby-screen');
+  let gameScreen = document.getElementById('game-screen');
+  let endScreen = document.getElementById('end-screen');
+  let loadScreen = document.getElementById('loading-screen');
 
-    createScreen.classList.add("hide");
-    joinScreen.classList.add("hide");
-    lobbyScreen.classList.remove("hide");
+  createScreen.classList.add("hide");
+  joinScreen.classList.add("hide");
+  lobbyScreen.classList.remove("hide");
+
+  Lobby();
 }
+
+function showLobby2() {
+  let menuScreen = document.getElementById('menu-screen');
+  let createScreen = document.getElementById('create-screen');
+  let joinScreen = document.getElementById('join-screen');
+  let lobbyScreen = document.getElementById('lobby-screen');
+  let gameScreen = document.getElementById('game-screen');
+  let endScreen = document.getElementById('end-screen');
+  let loadScreen = document.getElementById('loading-screen');
+
+  createScreen.classList.add("hide");
+  joinScreen.classList.add("hide");
+  lobbyScreen.classList.remove("hide");
+
+  Lobby2();
+}
+
 
 function showJoin() {
     let menuScreen = document.getElementById('menu-screen');

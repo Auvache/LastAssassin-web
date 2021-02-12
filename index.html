@@ -32,7 +32,7 @@
 		<input type="text" id="lcode2" name="lcode2" />
 		<label for="lname2">Enter Name:</label>
 		<input type="text" id="lname2" name="lname2" />
-		<button class="btn" onclick="Lobby2()">Send</button>
+		<button class="btn" onclick="showLobby2()">Send</button>
 	</div>
 
 	<!-- create game page -->
@@ -43,17 +43,18 @@
 		<input type="hidden" id="lcode" name="lcode" />
 		<label for="lname">Host Name:</label>
 		<input type="text" id="lname" name="lname" />
-		<button class="btn" onclick="Lobby()">got to lobby</button>
+		<button class="btn" onclick="showLobby()">got to lobby</button>
 	</div>
 
 	<!-- lobby -->
 	<div id="lobby-screen" class="hide">
 		<img alt="" src="img/shuriken.png">
 		<h1>Last<br/>Assassin</h1>
-		<label>Game Code</label>
 
+		<label>Game Code</label>
 		<h2 class="game-code" id="scode"></h2>
-		<p style="text-decoration: underline;">Players</p>
+
+		<p style="text-decoration: underline;">heartbeat count: <span id="hb"></span></p>
 		<ul id="lobby_result"></ul>
 		<button class="btn" onclick="Start()">Start Game</button>
 		
@@ -61,7 +62,7 @@
 
 	<!-- game play -->
 	<div id="game-screen" class="hide">
-		<p>game</p>
+		<p>game heartbeat: <span id="ghb"></span></p>
 		<p id="start_result"></p>
 		<input type="text" id="code" name="code" />
 		<input type="text" id="name" name="name" />
