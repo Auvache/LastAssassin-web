@@ -7,8 +7,8 @@ const user = {
   alive: true,
   kills: 0,
   target: '',
-  targetLat: 0.0005,
-  targetLong: 0.0005,
+  targetLat: 40.235119,
+  targetLong: -111.662193,
   playersAlive: 0
 }
 
@@ -191,8 +191,8 @@ function Game() {
       user.alive = data.CurrentlyAlive;
       user.kills = data.CurrentKills;
       user.target = data.TargetName;
-      user.targetLat = data.Targetlatitude;
-      user.targetLong = data.TargetLongitude;
+      // user.targetLat = data.Targetlatitude;
+      // user.targetLong = data.TargetLongitude;
       user.playersAlive = data.PlayersAlive;
 
       document.getElementById('target').innerText = user.target;
@@ -200,13 +200,30 @@ function Game() {
       document.getElementById('leftAlive').innerText = user.playersAlive;
     
       if (heart.gamebeat < 1000000) {
-        setTimeout(function(){Game();},3000);
+        setTimeout(function(){
+          // initMap(); Update the google maps marker
+          Game();
+        },3000);
       };
     })
     .catch((error) => {
       console.error("Error:", error);
     });    
 }
+
+// Google Maps functionality
+function initMap() {
+  const targetLocation = { lat: user.targetLat, lng: user.targetLong };
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 4,
+    center: targetLocation,
+  });
+  const marker = new google.maps.Marker({
+    position: targetLocation,
+    map: map,
+  });
+}
+
 
 // show page methods
 function showCreate(c) {
