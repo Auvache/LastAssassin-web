@@ -49,6 +49,18 @@ p { margin: 0 0 15px 0; }
     text-decoration: none;
 }
 
+.kill-btn {
+	width: 224px;
+    margin: 34px auto;
+    background-color: transparent;
+    padding: 20px 20px;
+    font-size: 14px;
+    color: #ffffff;
+    display: inline-block;
+    text-decoration: none;
+    border: 2px solid #000000;
+}
+
 .btn-small {
 	width: 224px;
     margin: 6px auto;
@@ -166,6 +178,13 @@ to {
     padding-top: 24px;
     text-align: left;
     line-height: 24px;
+}
+
+#game-top img {
+    position: absolute;
+    top: 8px;
+    right: 26px;
+    max-width: 90px;
 }
 
 
