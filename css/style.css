@@ -25,6 +25,7 @@ button, input[type="submit"], input[type="reset"] {
     background: -moz-linear-gradient(top, #eee, #ccc);
     -webkit-border-radius: 56px;
 	-moz-border-radius: 56px;
+    border-radius: 56px;
 	text-align: center;
 }
 
@@ -128,41 +129,44 @@ to {
 	padding: 0;
 }
 
+/* game board *********************************************************/
 
+/* layout */
+#game-top, #game-map, #game-bottom { 
+    position: absolute; 
+    margin-left: -12px;
+    width: 100%;
+}
 
-/* tutorial */
-
-.modal {
-	display: none; /* Hidden by default */
-    height: 98%;
-    width: 96%;
-    position: absolute;
-    top: 1%;
-    left: 2%;
-    border-radius: 56px;
+#game-top {
+    background: rgba(219,0,0,1);
+    top: 0;
+    height: 130px;
+    border-bottom: 1px solid #000000;
+    border-radius: 56px 56px 0 0;
+    z-index: 1;
+}
+#game-map {
     background-color: #ffffff;
-  }
-  
-  /* Modal Content */
-  .modal-content {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-  }
-  
-  /* The Close Button */
-  .close {
-	color: #aaaaaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-  }
+    top: 130px;
+    bottom: 130px;
+}
+#game-bottom {
+    background: rgba(219,0,0,1);
+    bottom: 0;
+    height: 130px;
+    border-top: 1px solid #000000;
+    border-radius: 0 0 56px 56px;
+}
+
+/* data */
+#game-top ul {
+    list-style-type: none;
+    padding-left: 24px;
+    padding-top: 24px;
+    text-align: left;
+    line-height: 24px;
+}
+
+
+/* END game board *****************************************************/

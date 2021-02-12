@@ -32,7 +32,7 @@
 		<input type="text" id="lcode2" name="lcode2" />
 		<label for="lname2">Enter Name:</label>
 		<input type="text" id="lname2" name="lname2" />
-		<button class="btn" onclick="showLobby2()">Send</button>
+		<button class="btn" onclick="showLobby2()">Go to Lobby</button>
 	</div>
 
 	<!-- create game page -->
@@ -43,7 +43,7 @@
 		<input type="hidden" id="lcode" name="lcode" />
 		<label for="lname">Host Name:</label>
 		<input type="text" id="lname" name="lname" />
-		<button class="btn" onclick="showLobby()">got to lobby</button>
+		<button class="btn" onclick="showLobby()">Go to lobby</button>
 	</div>
 
 	<!-- lobby -->
@@ -56,24 +56,32 @@
 
 		<p style="text-decoration: underline;">heartbeat count: <span id="hb"></span></p>
 		<ul id="lobby_result"></ul>
-		<button class="btn" onclick="Start()">Start Game</button>
+		<button id="startBtn" class="btn" onclick="Start()">Start Game</button>
 		
 	</div>
 
 	<!-- game play -->
 	<div id="game-screen" class="hide">
 		<p>game heartbeat: <span id="ghb"></span></p>
-		<p id="start_result"></p>
-		<input type="text" id="code" name="code" />
-		<input type="text" id="name" name="name" />
-		<label for="lat">Latitude:</label>
-		<input type="number" id="lat" name="lat" value=".0005" />
-		<label for="long">Longitude:</label>
-		<input type="number" id="long" name="long" value=".0005" />
-		<label for="timestamp">Timestamp:</label>
-		<input type="datetime-local" id="timestamp" name="timestamp" />
-		<button class="btn" onclick="Game()">call game function</button>
-		<p id="game_result">Results will go here.</p>
+		<div id="game-top">
+			<ul>
+				<li><strong>Target:</strong> <span id="target"></span></li>
+				<li><strong>Kills:</strong> <span id="kills"></span></li>
+				<li><strong>Alive:</strong> <span id="leftAlive"></span></li>
+			</ul>
+		</div>
+		<div id="game-map">
+			<p>map</p>
+		</div>
+		<div id="game-bottom">
+			<p>bottom</p>
+		</div>
+		
+		<p class="hide" id="start_result"></p>
+		<input class="hide"  type="text" id="code" name="code" />
+		<input class="hide" type="text" id="name" name="name" />
+		<input class="hide" type="number" id="lat" name="lat" value=".0005" />
+		<input class="hide" type="number" id="long" name="long" value=".0005" />
 	</div>
 
 	<!-- after game -->

@@ -3,6 +3,14 @@ const heart = {
   gamebeat: 0,
   lobbybeat: 0
 }
+const user = {
+  alive: true,
+  kills: 0,
+  target: '',
+  targetLat: 0.0005,
+  targetLong: 0.0005,
+  playersAlive: 0
+}
 
 function Create() {
   fetch(api_url, {
@@ -138,6 +146,7 @@ function Lobby2() {
 
       if (data.GameStarted == true) {
         document.getElementById("code").value = code;
+        heart.lobbybeat = 1000000;
         showGame();
         Game();
       }
@@ -159,13 +168,11 @@ function Game() {
   const name = document.getElementById("name").value;
   const lat = document.getElementById("lat").value;
   const long = document.getElementById("long").value;
-  const timestamp = document.getElementById("timestamp").value;
   const request = {
     Game: code,
     Player: name,
     Latitude: lat,
     Longitude: long,
-    Timestamp: timestamp,
   };
   fetch(api_url, {
     method: "POST",
@@ -180,7 +187,18 @@ function Game() {
       return response.json();
     })
     .then((data) => {
-      document.getElementById("game_result").innerHTML = JSON.stringify(data);
+      
+      user.alive = data.CurrentlyAlive;
+      user.kills = data.CurrentKills;
+      user.target = data.TargetName;
+      user.targetLat = data.Targetlatitude;
+      user.targetLong = data.TargetLongitude;
+      user.playersAlive = data.PlayersAlive;
+
+      document.getElementById('target').innerText = user.target;
+      document.getElementById('kills').innerText = user.kills;
+      document.getElementById('leftAlive').innerText = user.playersAlive;
+    
       if (heart.gamebeat < 1000000) {
         setTimeout(function(){Game();},3000);
       };
@@ -229,6 +247,8 @@ function showLobby2() {
   let gameScreen = document.getElementById('game-screen');
   let endScreen = document.getElementById('end-screen');
   let loadScreen = document.getElementById('loading-screen');
+
+  document.getElementById('startBtn').classList.add('hide');
 
   createScreen.classList.add("hide");
   joinScreen.classList.add("hide");
