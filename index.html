@@ -28,10 +28,10 @@
 	<div id="join-screen" class="hide">
 		<img alt="" src="img/shuriken.png">
 		<h1>Last<br/>Assassin</h1>
-		<label for="lcode2">Game Code:</label>
-		<input type="text" id="lcode2" name="lcode2" />
-		<label for="lname2">Enter Name:</label>
-		<input type="text" id="lname2" name="lname2" />
+		<label for="lcode2">Game Code:</label><br/>
+		<input type="text" id="lcode2" name="lcode2" /><br/>
+		<label for="lname2">Enter Name:</label><br/>
+		<input type="text" id="lname2" name="lname2" /><br/>
 		<button class="btn" onclick="showLobby2()">Go to Lobby</button>
 	</div>
 
@@ -39,10 +39,10 @@
 	<div id="create-screen" class="hide">
 		<img alt="" src="img/shuriken.png">
 		<h1>Last<br/>Assassin</h1>
-		<p class="hide" id="create_result"></p>
-		<input type="hidden" id="lcode" name="lcode" />
-		<label for="lname">Host Name:</label>
-		<input type="text" id="lname" name="lname" />
+		<p class="hide" id="create_result"></p><br/>
+		<input type="hidden" id="lcode" name="lcode" /><br/>
+		<label for="lname">Host Name:</label><br/>
+		<input type="text" id="lname" name="lname" /><br/>
 		<button class="btn" onclick="showLobby()">Go to lobby</button>
 	</div>
 
@@ -51,8 +51,8 @@
 		<img alt="" src="img/shuriken.png">
 		<h1>Last<br/>Assassin</h1>
 
-		<label>Game Code</label>
-		<h2 class="game-code" id="scode"></h2>
+		<label>Game Code</label><br/>
+		<h2 class="game-code" id="scode"></h2><br/>
 
 		<p style="text-decoration: underline;">heartbeat count: <span id="hb"></span></p>
 		<ul id="lobby_result"></ul>
@@ -72,8 +72,10 @@
 			<img alt="" src="img/shuriken.png">
 		</div>
 		<div id="game-map">
-			<div id="map"></div>
-			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuQ5Vi_J-uoIp7yeikoJfsJQK07Bz4nvY&callback=initMap&libraries=&v=weekly" async ></script>
+			<p class="" id="lat"></p>
+			<p class="" id="long"></p>
+			<!-- <div id="map"></div> -->
+			<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuQ5Vi_J-uoIp7yeikoJfsJQK07Bz4nvY&callback=initMap&libraries=&v=weekly" async ></script> -->
 		</div>
 		<div id="game-bottom">
 			<button class="kill-btn">Eliminate Target</button>
@@ -82,8 +84,7 @@
 		<p class="hide" id="start_result"></p>
 		<input class="hide"  type="text" id="code" name="code" />
 		<input class="hide" type="text" id="name" name="name" />
-		<input class="hide" type="number" id="lat" name="lat" value=".0005" />
-		<input class="hide" type="number" id="long" name="long" value=".0005" />
+		
 	</div>
 
 	<!-- after game -->

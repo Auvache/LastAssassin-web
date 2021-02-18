@@ -166,8 +166,8 @@ function Game() {
 
   const code = document.getElementById("code").value;
   const name = document.getElementById("name").value;
-  const lat = document.getElementById("lat").value;
-  const long = document.getElementById("long").value;
+  const lat = user.targetLat;
+  const long = user.targetLong;
   const request = {
     Game: code,
     Player: name,
@@ -191,13 +191,15 @@ function Game() {
       user.alive = data.CurrentlyAlive;
       user.kills = data.CurrentKills;
       user.target = data.TargetName;
-      // user.targetLat = data.Targetlatitude;
-      // user.targetLong = data.TargetLongitude;
+      user.targetLat = data.Targetlatitude;
+      user.targetLong = data.TargetLongitude;
       user.playersAlive = data.PlayersAlive;
 
       document.getElementById('target').innerText = user.target;
       document.getElementById('kills').innerText = user.kills;
       document.getElementById('leftAlive').innerText = user.playersAlive;
+      document.getElementById('lat').innerText = user.targetLat;
+      document.getElementById('long').innerText = user.targetLong;
     
       if (heart.gamebeat < 1000000) {
         setTimeout(function(){
@@ -212,17 +214,18 @@ function Game() {
 }
 
 // Google Maps functionality
-function initMap() {
-  const targetLocation = { lat: user.targetLat, lng: user.targetLong };
-  const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 4,
-    center: targetLocation,
-  });
-  const marker = new google.maps.Marker({
-    position: targetLocation,
-    map: map,
-  });
-}
+
+// function initMap() {
+//   const targetLocation = { lat: user.targetLat, lng: user.targetLong };
+//   const map = new google.maps.Map(document.getElementById("map"), {
+//     zoom: 4,
+//     center: targetLocation,
+//   });
+//   const marker = new google.maps.Marker({
+//     position: targetLocation,
+//     map: map,
+//   });
+// }
 
 
 // show page methods
