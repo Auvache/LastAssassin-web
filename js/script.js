@@ -6,11 +6,19 @@ const heart = {
 const user = {
   alive: true,
   kills: 0,
+  myLat: 0,
+  myLong: 0,
   target: '',
-  targetLat: 40.235119,
-  targetLong: -111.662193,
+  targetLat: 0,
+  targetLong: 0,
   playersAlive: 0
 }
+
+const options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
 
 function Create() {
   fetch(api_url, {
@@ -163,11 +171,12 @@ function Lobby2() {
 function Game() {
   heart.gamebeat = heart.gamebeat + 1;
   document.getElementById('ghb').innerText = heart.gamebeat;
+  getLatLon();
 
   const code = document.getElementById("code").value;
   const name = document.getElementById("name").value;
-  const lat = user.targetLat;
-  const long = user.targetLong;
+  const lat = user.myLat;
+  const long = user.myLong;
   const request = {
     Game: code,
     Player: name,
@@ -191,7 +200,7 @@ function Game() {
       user.alive = data.CurrentlyAlive;
       user.kills = data.CurrentKills;
       user.target = data.TargetName;
-      user.targetLat = data.Targetlatitude;
+      user.targetLat = data.TargetLatitude;
       user.targetLong = data.TargetLongitude;
       user.playersAlive = data.PlayersAlive;
 
@@ -215,17 +224,39 @@ function Game() {
 
 // Google Maps functionality
 
-// function initMap() {
-//   const targetLocation = { lat: user.targetLat, lng: user.targetLong };
-//   const map = new google.maps.Map(document.getElementById("map"), {
-//     zoom: 4,
-//     center: targetLocation,
-//   });
-//   const marker = new google.maps.Marker({
-//     position: targetLocation,
-//     map: map,
-//   });
-// }
+function initMap() {
+  const targetLocation = { lat: user.targetLat, lng: user.targetLong };
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 4,
+    center: targetLocation,
+  });
+  const marker = new google.maps.Marker({
+    position: targetLocation,
+    map: map,
+  });
+}
+
+function success(pos) {
+  var crd = pos.coords;
+
+  user.myLat = crd.latitude
+  user.myLong = crd.longitude
+
+  console.log('My lat and long:');
+  console.log(user.myLat);
+  console.log(user.myLong);
+
+}
+
+function error(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+function getLatLon() {
+  navigator.geolocation.getCurrentPosition(success, error, options);
+}
+
+
 
 
 // show page methods
