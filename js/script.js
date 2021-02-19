@@ -1,4 +1,4 @@
-const api_url = "http://lastapi.stevenrummler.com/";
+const api_url = "https://lastapi.stevenrummler.com/";
 const heart = {
   gamebeat: 0,
   lobbybeat: 0
