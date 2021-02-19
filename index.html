@@ -73,14 +73,15 @@
 			<img alt="" src="img/shuriken.png">
 		</div>
 		<div id="game-map">
-			<p class="" id="lat"></p>
-			<p class="" id="long"></p>
-
-			<!-- <div id="map"></div> -->
-			<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuQ5Vi_J-uoIp7yeikoJfsJQK07Bz4nvY&callback=initMap&libraries=&v=weekly" async ></script> -->
+			<div id="map"></div>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuQ5Vi_J-uoIp7yeikoJfsJQK07Bz4nvY&callback=initMap&libraries=&v=weekly" async ></script>
 		</div>
 		<div id="game-bottom">
-			<button class="kill-btn">Eliminate Target</button>
+			<!-- <button class="kill-btn">Eliminate Target</button> -->
+			<br/>
+			<p class="hide" class="" id="lat"></p>
+			<p class="hide" id="long"></p>
+			<button class="btn" onclick="mapTargetLocation()">update map</button>
 		</div>
 		
 		<p class="hide" id="start_result"></p>

@@ -1,3 +1,4 @@
+// variables /////////////////////////////////////////////////////////////////////////
 const api_url = "https://lastapi.stevenrummler.com/";
 const heart = {
   gamebeat: 0,
@@ -11,14 +12,17 @@ const user = {
   target: '',
   targetLat: 0,
   targetLong: 0,
-  playersAlive: 0
+  playersAlive: 0,
+  marker: '',
+  map: '',
 }
-
 const options = {
   enableHighAccuracy: true,
   timeout: 5000,
-  maximumAge: 0
+  maximumAge: 100000
 };
+
+// GAME FUNCTIONS /////////////////////////////////////////////////////////////////////
 
 function Create() {
   fetch(api_url, {
@@ -67,6 +71,7 @@ function Start() {
     })
     .then((data) => {
       document.getElementById("start_result").innerHTML = JSON.stringify(data);
+      initMap();
       showGame();
       // show loading screen here before calling Game();
 
@@ -107,7 +112,7 @@ function Lobby() {
       }
       document.getElementById("lobby_result").innerHTML = html;
       if (heart.lobbybeat < 100) {
-        setTimeout(function(){Lobby();},3000);
+        setTimeout(function(){Lobby();},1000);
       };
       
     })
@@ -149,7 +154,7 @@ function Lobby2() {
       }
       document.getElementById("lobby_result").innerHTML = html;
       if (heart.lobbybeat < 100) {
-        setTimeout(function(){Lobby2();},3000);
+        setTimeout(function(){Lobby2();},1000);
       };
 
       if (data.GameStarted == true) {
@@ -209,12 +214,13 @@ function Game() {
       document.getElementById('leftAlive').innerText = user.playersAlive;
       document.getElementById('lat').innerText = user.targetLat;
       document.getElementById('long').innerText = user.targetLong;
+
+      mapTargetLocation();
     
       if (heart.gamebeat < 1000000) {
         setTimeout(function(){
-          // initMap(); Update the google maps marker
           Game();
-        },3000);
+        },1000);
       };
     })
     .catch((error) => {
@@ -226,16 +232,15 @@ function Game() {
 
 function initMap() {
   const targetLocation = { lat: user.targetLat, lng: user.targetLong };
-  const map = new google.maps.Map(document.getElementById("map"), {
+  map = new google.maps.Map(document.getElementById("map"), {
     zoom: 4,
     center: targetLocation,
   });
-  const marker = new google.maps.Marker({
+  user.marker = new google.maps.Marker({
     position: targetLocation,
     map: map,
   });
 }
-
 function success(pos) {
   var crd = pos.coords;
 
@@ -247,9 +252,13 @@ function success(pos) {
   console.log(user.myLong);
 
 }
-
 function error(err) {
   console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+function mapTargetLocation() {
+  var newLatLng = new google.maps.LatLng(user.targetLat, user.targetLong);
+    user.marker.setPosition(newLatLng);
+    // user.map.panTo( new google.maps.LatLng(newLatLng) );
 }
 
 function getLatLon() {
