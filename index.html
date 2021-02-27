@@ -9,7 +9,7 @@
 	<title>Last Assassin</title>
 	<link rel='stylesheet' type='text/css' href='css/style.css' />
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
-	<script type='text/javascript' src='js/script.js'></script>
+	<script type='text/javascript' src='js/script3.js'></script>
 	<link href='https://fonts.googleapis.com/css?family=Syncopate' rel='stylesheet'>
 </head>
 
@@ -20,7 +20,7 @@
 	<div id="menu-screen">
 		<img class="menu" alt="" src="img/shuriken.png">
 		<h1 class="menu">Last Assassin</h1>
-		<button class="btn" onclick="Create()">Create Game</button>
+		<button class="btn" onclick="showCreate()">Create Game</button>
 		<button class="btn" onclick="showJoin()">join game</button>
 
 	</div>
@@ -33,31 +33,31 @@
 		<input type="text" id="lcode2" name="lcode2" /><br/>
 		<label for="lname2">Enter Name:</label><br/>
 		<input type="text" id="lname2" name="lname2" /><br/>
-		<button class="btn" onclick="showLobby2()">Go to Lobby</button>
+		<button class="btn" onclick="showLobby2();">Go to Lobby</button>
 	</div>
 
 	<!-- create game page -->
 	<div id="create-screen" class="hide">
 		<img alt="" src="img/shuriken.png">
 		<h1>Last<br/>Assassin</h1>
-		<p class="hide" id="create_result"></p><br/>
-		<input type="hidden" id="lcode" name="lcode" /><br/>
-		<label for="lname">Host Name:</label><br/>
-		<input type="text" id="lname" name="lname" /><br/>
-		<button class="btn" onclick="showLobby()">Go to lobby</button>
+		<label for="host">Host Name:</label><br/>
+		<input type="text" id="host" name="host" /><br/>
+		<button class="btn" onclick="Create()">Go to lobby</button>
 	</div>
 
 	<!-- lobby -->
 	<div id="lobby-screen" class="hide">
+		<p id="create_result">results go here</p>
 		<img alt="" src="img/shuriken.png">
 		<h1>Last<br/>Assassin</h1>
 
 		<label>Game Code</label><br/>
-		<h2 class="game-code" id="scode"></h2><br/>
+		<h2 class="game-code" id="lcode"></h2><br/>
 
 		<p style="text-decoration: underline;">heartbeat count: <span id="hb"></span></p>
 		<ul id="lobby_result"></ul>
 		<button id="startBtn" class="btn" onclick="Start()">Start Game</button>
+		<p id="host_result"></p>
 		
 	</div>
 
@@ -74,7 +74,7 @@
 		</div>
 		<div id="game-map">
 			<div id="map"></div>
-			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuQ5Vi_J-uoIp7yeikoJfsJQK07Bz4nvY&callback=initMap&libraries=&v=weekly" async ></script>
+			<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuQ5Vi_J-uoIp7yeikoJfsJQK07Bz4nvY&callback=initMap&libraries=&v=weekly" async ></script> -->
 		</div>
 		<div id="game-bottom">
 			<!-- <button class="kill-btn">Eliminate Target</button> -->
@@ -84,9 +84,7 @@
 			<button class="btn" onclick="mapTargetLocation()">update map</button>
 		</div>
 		
-		<p class="hide" id="start_result"></p>
-		<input class="hide"  type="text" id="code" name="code" />
-		<input class="hide" type="text" id="name" name="name" />
+		<p class="" id="start_result"></p>
 		
 	</div>
 
