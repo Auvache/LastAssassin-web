@@ -1,97 +1,76 @@
 const api_url = "https://api.lastassassin.app/";
-const game = {
-  code: '',
-  host: '',
-  players: {},
-  mode: 'manual',
-  delay: 60,
+const session = {
   attemptcd: 5,
+  delay: 60,
+  game: '',
+  host: '',
+  lagdistance: 3,
+  mode: 'Manual',
+  players: {},
   tagcd: 20,
   tagdistance: 1,
-  lagdistance: 3,
-  route: '',
-  result: '',
 }
 const player = {
   name: '',
-  lat: 0,
-  long: 0,
+  lat: 40.2338889,
+  long: -111.6577778,
 }
 const heartbeat = {
   lobby: 0,
   game: 0,
-}
-
-let gameData;
-  
+  lobbyDead: false,
+  gameDead: false,
+}  
 
 
 function Create() {
-  const host = document.getElementById("host").value;
+  session.host = document.getElementById('host').value;
   const request = {
-    Host: host,
+    Host: session.host,
   };
   call(request, "create", "create_result");
-  Host();
-  showLobby();
 }
 
 function Host() {
   heartbeat.lobby = heartbeat.lobby + 1;
   document.getElementById('hb').innerText = heartbeat.lobby;
-  player.name = game.host;
+  player.name = session.host;
 
-  const code = game.code;
-  const name = game.host;
-  const mode = game.mode;
-  const delay = game.delay;
-  const attempt_cd = game.attemptcd;
-  const kill_cd = game.tagcd;
-  const kill_distance = game.tagdistance;
-  const lag_distance = game.lagdistance;
   const request = {
-    Game: code,
-    Player: name,
-    Mode: mode,
-    Delay: delay,
-    AttemptCD: attempt_cd,
-    KillCD: kill_cd,
-    KillDistance: kill_distance,
-    LagDistance: lag_distance,
+    Game: session.game,
+    Player: session.host,
+    Mode: session.mode,
+    Delay: session.delay,
+    AttemptCD: session.attemptcd,
+    KillCD: session.tagcd,
+    KillDistance: session.tagdistance,
+    LagDistance: session.lagdistance,
   };
-  call(request, "host", "host_result");
-  if (heartbeat.lobby < 100) {
-    setTimeout(function(){Host();},1000);
-  };
-  
+  call(request, "host", "host_result");  
 }
 
 function Lobby() {
   heartbeat.lobby = heartbeat.lobby + 1;
   document.getElementById('hb').innerText = heartbeat.lobby;
 
-  const code = game.code;
-  const name = player.name;
   const request = {
-    Game: code,
-    Player: name,
+    Game: session.game,
+    Player: player.name,
   };
   call(request, "lobby", "lobby2_result");
-  
 }
 
-function Start() {
-  heartbeat.lobby = 1000000;
+function KillLobby() {
+    heartbeat.lobby = 1000000;
+}
 
-  const code = game.code;
-  const name = player.name;
-  const lat = player.lat;
-  const long = player.long;
+function StartGame() {
+  console.log("start clicked");
   const request = {
-    Game: code,
-    Player: name,
-    HomeLat: lat,
-    HomeLong: long,
+    Game: session.game,
+    Player: player.name,
+    HomeLat: player.lat,
+    HomeLong: player.long,
   };
   call(request, "start", "start_result");
 }
@@ -146,17 +125,75 @@ function call(request, route, result) {
       return response.json();
     })
     .then((data) => {
-      gameData = data;
-      document.getElementById(result).innerHTML = JSON.stringify(data);
-      console.log('data:');
-      console.log(gameData);
+      // for testing
+      console.log(route + ' data:');
+      console.log(data);
+
+      if(route == "create") {
+        session.game = data.Game;
+        document.getElementById('lcode').innerText = session.game;
+        showLobby();
+        Host();
+      }
+
+      if(route == "host") {
+        var html = '';
+        for (var i = 0; i < data.Players.length; i++) {
+          html += '<li>' + data.Players[i] + '</li>';
+        }
+        document.getElementById("lobby_result").innerHTML = html;
+
+        if (heartbeat.lobby < 1000) {
+          setTimeout(function(){Host();},2000);
+        } else { 
+          setTimeout(function(){StartGame();},7000);
+        }
+      }
+
+      if(route == "lobby") {
+        if (data.GameStarted == false) {
+          session.host = data.Host;
+          session.players = data.Players;
+  
+          var html = '';
+          for (var i = 0; i < data.Players.length; i++) {
+            html += '<li>' + data.Players[i] + '</li>';
+          }
+          document.getElementById("lobby_result").innerHTML = html;
+  
+          if (heartbeat.lobby < 1000) {
+            setTimeout(function(){Lobby();},2000);
+          }
+        }
+        else {
+          showGame();
+        }
+      }
+
+      // for testing
+      console.log(route + ' session object:');
+      console.log(session);
     })
     .catch((error) => {
       console.error("Error:", error);
     });
+
+    if (route == "start") {
+      showGame();
+    }
 }
 
-// show page methods
+
+
+
+
+
+
+
+
+
+// show page methods //////////////////////////////////////////////////
+
 function showCreate() {
   let menuScreen = document.getElementById('menu-screen');
   let createScreen = document.getElementById('create-screen');
@@ -186,9 +223,9 @@ createScreen.classList.add("hide");
 joinScreen.classList.add("hide");
 lobbyScreen.classList.remove("hide");
 
-game.code = document.getElementById('lcode2').value;
+session.game = document.getElementById('lcode2').value;
 player.name = document.getElementById('lname2').value;
-document.getElementById('lcode').innerText = game.code
+document.getElementById('lcode').innerText = session.game
 
 Lobby();
 }
@@ -196,12 +233,7 @@ Lobby();
 
 function showJoin() {
   let menuScreen = document.getElementById('menu-screen');
-  let createScreen = document.getElementById('create-screen');
   let joinScreen = document.getElementById('join-screen');
-  let lobbyScreen = document.getElementById('lobby-screen');
-  let gameScreen = document.getElementById('game-screen');
-  let endScreen = document.getElementById('end-screen');
-  let loadScreen = document.getElementById('loading-screen');
 
   menuScreen.classList.add("hide");
   joinScreen.classList.remove("hide");
