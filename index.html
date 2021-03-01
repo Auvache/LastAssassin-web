@@ -62,7 +62,7 @@
 
 	<!-- game play -->
 	<div id="game-screen" class="hide">
-		<p>game heartbeat: <span id="ghb"></span></p>
+		
 		<div id="game-top">
 			<ul>
 				<li><strong>Target:</strong> <span id="target"></span></li>
@@ -72,6 +72,11 @@
 			<img alt="" src="img/shuriken.png">
 		</div>
 		<div id="game-map">
+			<p>game heartbeat: <span id="ghb"></span></p>
+			<p id="countdown"></p>
+			<p id="targetLat"></p>
+			<p id="targetLong"></p>
+			<p>distance to target: <span id="targetDistance"></span>m</p>
 			<div id="map"></div>
 			<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuQ5Vi_J-uoIp7yeikoJfsJQK07Bz4nvY&callback=initMap&libraries=&v=weekly" async ></script> -->
 		</div>
@@ -80,7 +85,7 @@
 			<br/>
 			<p class="hide" class="" id="lat"></p>
 			<p class="hide" id="long"></p>
-			<button class="btn" onclick="mapTargetLocation()">update map</button>
+			<button class="btn" onclick="Kill()">Assassinate Target</button>
 		</div>
 		
 	</div>
