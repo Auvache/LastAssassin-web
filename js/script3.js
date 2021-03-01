@@ -239,7 +239,7 @@ function Verify() {
 }
 
 
-// show page methods //////////////////////////////////////////////////
+// show page methods ////////////////////////////////////////////////////////
 
 function showCreate() {
   document.getElementById('menu-screen').classList.add("hide");
