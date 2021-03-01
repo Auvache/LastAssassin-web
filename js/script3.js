@@ -65,7 +65,6 @@ function KillLobby() {
 }
 
 function StartGame() {
-  console.log("start clicked");
   const request = {
     Game: session.game,
     Player: player.name,
@@ -76,15 +75,12 @@ function StartGame() {
 }
 
 function Game() {
-  const code = game.code;
-  const name = player.name;
-  const lat = player.lat;
-  const long = player.long;
+
   const request = {
-    Game: code,
-    Player: name,
-    Latitude: lat,
-    Longitude: long,
+    Game: session.game,
+    Player: player.name,
+    Latitude: player.lat,
+    Longitude: player.long,
   };
   call(request, "game", "game_result");
 }
@@ -240,14 +236,11 @@ function showJoin() {
 }
 
 function showGame() {
-let menuScreen = document.getElementById('menu-screen');
-let createScreen = document.getElementById('create-screen');
-let joinScreen = document.getElementById('join-screen');
 let lobbyScreen = document.getElementById('lobby-screen');
 let gameScreen = document.getElementById('game-screen');
-let endScreen = document.getElementById('end-screen');
-let loadScreen = document.getElementById('loading-screen');
 
 lobbyScreen.classList.add("hide");
 gameScreen.classList.remove("hide");
+
+Game();
 }
