@@ -7,7 +7,7 @@ const session = {
   game: '',
   host: '',
   lagdistance: 3,
-  mode: 'Honor',
+  mode: 'Manual',
   players: {},
   tagcd: 20,
   tagdistance: 1,
@@ -167,13 +167,18 @@ function Game() {
   heartbeat.game = heartbeat.game + 1;
   document.getElementById('ghb').innerText = heartbeat.game;
 
-  if (player.Status == "Pending") {
+  if (player.Pending != "") {
     document.getElementById('confirmBtn').classList.remove('hide');
   }
 
   // get player latitude and longitude
-  player.lat = Math.random() * 10;
-  player.long = Math.random() * 10;
+  navigator.geolocation.getCurrentPosition(function(location) {
+    player.lat = location.coords.latitude;
+    player.long = location.coords.longitude;
+    console.log(location.coords.latitude);
+    console.log(location.coords.longitude);
+    console.log(location.coords.accuracy);
+  });
 
   const request = {
     Game: session.game,
