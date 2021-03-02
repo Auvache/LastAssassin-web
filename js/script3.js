@@ -23,6 +23,8 @@ const player = {
   targetlong: -111.6577778,
   targetname: '',
   targetdistance: 0,
+  hunter: '',
+  status: '',
 }
 const heartbeat = {
   lobby: 0,
@@ -34,7 +36,7 @@ const heartbeat = {
 
 // main game functionality methods ////////////////////////////////////////////////
 
-function call(request, route, result) {
+function call(request, route) {
   fetch(api_url + route, {
     method: "POST",
     headers: {
@@ -104,6 +106,8 @@ function call(request, route, result) {
           player.targetlong = data.TargetLong;
           player.playersalive = data.PlayersAlive;
           player.targetdistance = distance(player.lat, player.long, player.targetlat, player.targetlong)
+          player.hunter = data.Pending;
+          player.status = data.Status;
         }
 
         if (heartbeat.game < 1000000) {
@@ -125,7 +129,7 @@ function Create() {
   const request = {
     Host: session.host,
   };
-  call(request, "create", "create_result");
+  call(request, "create");
 }
 
 function distance(lat1, lon1, lat2, lon2) {
@@ -159,8 +163,13 @@ function Game() {
     document.getElementById('targetLong').innerText = player.targetlong;
     document.getElementById('targetDistance').innerText = player.targetdistance;
   }
+
   heartbeat.game = heartbeat.game + 1;
   document.getElementById('ghb').innerText = heartbeat.game;
+
+  if (player.Status == "Pending") {
+    document.getElementById('confirmBtn').classList.remove('hide');
+  }
 
   // get player latitude and longitude
   player.lat = Math.random() * 10;
@@ -172,7 +181,7 @@ function Game() {
     Latitude: player.lat,
     Longitude: player.long,
   };
-  call(request, "game", "game_result");
+  call(request, "game");
 }
 
 function Host() {
@@ -190,7 +199,7 @@ function Host() {
     KillDistance: session.tagdistance,
     LagDistance: session.lagdistance,
   };
-  call(request, "host", "host_result");  
+  call(request, "host");  
 }
 
 function Lobby() {
@@ -201,7 +210,7 @@ function Lobby() {
     Game: session.game,
     Player: player.name,
   };
-  call(request, "lobby", "lobby2_result");
+  call(request, "lobby");
 }
 
 function Kill() {
@@ -209,7 +218,7 @@ function Kill() {
     Game: session.game,
     Player: player.name,
   };
-  call(request, "kill", "kill_result");
+  call(request, "tag");
 }
 
 function KillLobby() {
@@ -223,19 +232,17 @@ function StartGame() {
     HomeLat: player.lat,
     HomeLong: player.long,
   };
-  call(request, "start", "start_result");
+  call(request, "start");
 }
 
 function Verify() {
-  const code = document.getElementById("vcode").value;
-  const name = document.getElementById("vname").value;
-  const hunter = document.getElementById("hunter").value;
-  const verify = document.getElementById("verify").value;
   const request = {
-    Game: code,
-    Player: name,
+    Game: session.game,
+    Player: player.name,
+    Hunter: player.hunter,
+    Accept: true,
   };
-  call(request, "verify", "verify_result");
+  call(request, "verify");
 }
 
 
