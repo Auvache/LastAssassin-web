@@ -21,7 +21,6 @@
 		<h1 class="menu">Last Assassin</h1>
 		<button class="btn" onclick="showCreate()">Create Game</button>
 		<button class="btn" onclick="showJoin()">join game</button>
-
 	</div>
 
 	<!-- join game page -->
@@ -54,7 +53,7 @@
 		<label>Game Code</label><br/>
 		<h2 class="game-code" id="lcode"></h2><br/>
 
-		<p style="text-decoration: underline;">heartbeat count: <span id="hb"></span></p>
+		<p style="text-decoration: underline;">Players</p>
 		<ul id="lobby_result"></ul>
 		<button id="startBtn" class="btn" onclick="KillLobby()">Start Game</button>
 		
@@ -74,10 +73,9 @@
 		<div id="game-map">
 			<p>game heartbeat: <span id="ghb"></span></p>
 			<p id="countdown"></p>
-			<p id="targetLat"></p>
-			<p id="targetLong"></p>
+			<p class="hide" id="targetLat"></p>
+			<p class="hide" id="targetLong"></p>
 			<p>distance to target: <span id="targetDistance"></span> m</p>
-			<button id="confirmBtn" class="btn hide" onclick="Verify()">Verify Kill</button>
 			<div id="map"></div>
 			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuQ5Vi_J-uoIp7yeikoJfsJQK07Bz4nvY&callback=initMap&libraries=&v=weekly" async ></script>
 		</div>
@@ -90,7 +88,13 @@
 
 	<!-- after game -->
 	<div id="end-screen" class="hide">
-		<p>end</p>
+		<img alt="" src="img/shuriken.png">
+		<h1>Last<br/>Assassin</h1>
+		<h1>Last Standing: <span id="last_standing"></span></h1>
+		<p style="text-decoration: underline;">Scores</p>
+		<ul id="end_result"></ul>
+		<button class="btn" onClick="window.location.reload();">Play Again</button>
+
 	</div>
 
 	<!-- loading -->

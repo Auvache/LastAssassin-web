@@ -47,7 +47,11 @@ function call(request, route) {
   })
     .then((response) => {
       console.log("Response: ", response);
-      return response.json();
+      if (response.status == 200) {
+        return response.json();
+      } else {
+        return response;
+      }
     })
     .then((data) => {
       // for testing
@@ -62,6 +66,7 @@ function call(request, route) {
       }
 
       if(route == "host") {
+        session.players = data.Players;
         var html = '';
         for (var i = 0; i < data.Players.length; i++) {
           html += '<li>' + data.Players[i] + '</li>';
@@ -110,8 +115,22 @@ function call(request, route) {
           player.status = data.Status;
         }
 
-        if (heartbeat.game < 1000000) {
-          setTimeout(function(){Game();},3000);
+        if (data.LastStanding) {
+          heartbeat.game = 100000000;
+        }
+
+        if (heartbeat.game < 10000000) {
+          setTimeout(function(){Game();},1000);
+        } else {
+          document.getElementById("last_standing").innerText = data.LastStanding;
+          var html = '';
+          for (var i = 0; i < session.players.length; i++) {
+            html += '<li>' + session.players[i] + ': ' + data.FinalScores[session.players[i]] + '</li>';
+          }
+          document.getElementById("end_result").innerHTML = html;
+          // document.getElementById("end_result").innerHTML = data.FinalScores;
+          console.log(data.FinalScores);
+          EndGame();
         }
       }
     })
@@ -153,6 +172,12 @@ function distance(lat1, lon1, lat2, lon2) {
 	}
 }
 
+function EndGame() {
+
+  showEnd();
+
+}
+
 function Game() {
 
   if (heartbeat.game > 0) {
@@ -167,9 +192,9 @@ function Game() {
   heartbeat.game = heartbeat.game + 1;
   document.getElementById('ghb').innerText = heartbeat.game;
 
-  if (player.Pending != "") {
-    document.getElementById('confirmBtn').classList.remove('hide');
-  }
+  // if (player.Pending != "") {
+  //   document.getElementById('confirmBtn').classList.remove('hide');
+  // }
 
   // get player latitude and longitude
   navigator.geolocation.getCurrentPosition(function(location) {
@@ -191,7 +216,7 @@ function Game() {
 
 function Host() {
   heartbeat.lobby = heartbeat.lobby + 1;
-  document.getElementById('hb').innerText = heartbeat.lobby;
+  // document.getElementById('hb').innerText = heartbeat.lobby;
   player.name = session.host;
 
   const request = {
@@ -209,7 +234,7 @@ function Host() {
 
 function Lobby() {
   heartbeat.lobby = heartbeat.lobby + 1;
-  document.getElementById('hb').innerText = heartbeat.lobby;
+  // document.getElementById('hb').innerText = heartbeat.lobby;
 
   const request = {
     Game: session.game,
@@ -256,6 +281,11 @@ function Verify() {
 function showCreate() {
   document.getElementById('menu-screen').classList.add("hide");
   document.getElementById('create-screen').classList.remove("hide");
+}
+
+function showEnd() {
+  document.getElementById('game-screen').classList.add("hide");
+  document.getElementById('end-screen').classList.remove("hide");
 }
 
 function showGame() {
