@@ -3,7 +3,7 @@
 const api_url = "https://api.lastassassin.app/";
 const session = {
   attemptcd: 5,
-  delay: 10,
+  delay: 60,
   game: '',
   host: '',
   lagdistance: 3,
@@ -102,8 +102,10 @@ function call(request, route) {
 
       if(route == "game") {
         if (data.Countdown > 0) {
-          document.getElementById('countdown').innerText = data.Countdown;
+          var cd = Math.ceil(data.Countdown);
+          document.getElementById('countdown').innerText = cd;
         } else {
+          document.getElementById('countdown_screen').classList.add('hide');
           player.living = data.Living;
           player.tags = data.Tags;
           player.targetname = data.TargetName;
@@ -190,7 +192,7 @@ function Game() {
   }
 
   heartbeat.game = heartbeat.game + 1;
-  document.getElementById('ghb').innerText = heartbeat.game;
+  // document.getElementById('ghb').innerText = heartbeat.game;
 
   // if (player.Pending != "") {
   //   document.getElementById('confirmBtn').classList.remove('hide');

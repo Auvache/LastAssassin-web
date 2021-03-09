@@ -45,8 +45,6 @@
 
 	<!-- lobby -->
 	<div id="lobby-screen" class="hide">
-		<p class="hide" id="create_result"></p>
-		
 		<img alt="" src="img/shuriken.png">
 		<h1>Last<br/>Assassin</h1>
 
@@ -61,7 +59,11 @@
 
 	<!-- game play -->
 	<div id="game-screen" class="hide">
-		
+		<div id="countdown_screen">
+			<p style="padding-top: 100px;">Game Starts in</p>
+			<p id="countdown"></p>
+			<img class="rotate load" src="img/shuriken.png">
+		</div>
 		<div id="game-top">
 			<ul>
 				<li><strong>Target:</strong> <span id="target"></span></li>
@@ -71,8 +73,8 @@
 			<img alt="" src="img/shuriken.png">
 		</div>
 		<div id="game-map">
-			<p>game heartbeat: <span id="ghb"></span></p>
-			<p id="countdown"></p>
+			<!-- <p>game heartbeat: <span id="ghb"></span></p> -->
+			
 			<p class="hide" id="targetLat"></p>
 			<p class="hide" id="targetLong"></p>
 			<p>distance to target: <span id="targetDistance"></span> m</p>
@@ -80,7 +82,7 @@
 			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuQ5Vi_J-uoIp7yeikoJfsJQK07Bz4nvY&callback=initMap&libraries=&v=weekly" async ></script>
 		</div>
 		<div id="game-bottom">
-=			<br/>
+			<br/>
 			<button class="btn" onclick="Kill()">Assassinate Target</button>
 		</div>
 		
