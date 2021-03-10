@@ -2,14 +2,13 @@
 
 const api_url = "https://api.lastassassin.app/";
 const session = {
-  attemptcd: 5,
   delay: 60,
   game: '',
   host: '',
   lagdistance: 3,
   mode: 'Manual',
   players: {},
-  tagcd: 20,
+  cooldown: 5,
   tagdistance: 1,
 }
 const player = {
@@ -226,8 +225,7 @@ function Host() {
     Player: session.host,
     Mode: session.mode,
     Delay: session.delay,
-    AttemptCD: session.attemptcd,
-    KillCD: session.tagcd,
+    Cooldown: session.cooldown,
     KillDistance: session.tagdistance,
     LagDistance: session.lagdistance,
   };
