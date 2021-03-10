@@ -226,7 +226,7 @@ function Host() {
     Mode: session.mode,
     Delay: session.delay,
     Cooldown: session.cooldown,
-    KillDistance: session.tagdistance,
+    TagDistance: session.tagdistance,
     LagDistance: session.lagdistance,
   };
   call(request, "host");  
